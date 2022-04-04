@@ -61,14 +61,7 @@ const userController = {
 
 	async deleteUser({ params, body }, res) {
 		try {
-			const dbUserData = await User.findOneAndDelete(
-				{ _id: params.id },
-				body,
-				{
-					new: true,
-					runValidators: true,
-				}
-			);
+			const dbUserData = await User.findOneAndDelete({ _id: params.id });
 			res.json(dbUserData);
 		} catch (err) {
 			console.log(err);

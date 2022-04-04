@@ -78,7 +78,7 @@ const thoughtController = {
 				{ $push: { reactions: body } },
 				{ new: true, runValidators: true }
 			);
-			if (!dbThoughtData) {
+			if (!dbReactionData) {
 				res.status(404).json({
 					message:
 						"No thought found with this id. Cannot attach a reaction.",
