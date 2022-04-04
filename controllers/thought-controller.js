@@ -3,27 +3,27 @@ const { Thought, User } = require("../models");
 const thoughtController = {
 	async getAllThoughts(req, res) {
 		try {
-			const dbThoughtData = Thought.find({}).select("-__v");
+			const dbThoughtData = await Thought.find({}).select("-__v");
 			res.json(dbThoughtData);
 		} catch (err) {
 			console.log(err);
-			res.sendStatus(400);
+			res.status(400).json(err);
 		}
 	},
 
 	async getThoughtById({ params }, res) {
 		try {
-			const dbThoughtData = Thought.findOne({ _id: params.id }).select(
-				"-__v"
-			);
+			const dbThoughtData = await Thought.findOne({
+				_id: params.id,
+			}).select("-__v");
 			res.json(dbThoughtData);
 		} catch (err) {
 			console.log(err);
-			res.sendStatus(400);
+			res.status(400).json(err);
 		}
 	},
 
-	async createThought({ body }, res) {
+	async createThought({ params, body }, res) {
 		try {
 			const dbThoughtData = await Thought.create(body);
 			await User.findOneAndUpdate(
